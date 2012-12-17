@@ -1,0 +1,1 @@
+Perl 6 framework for timing and testing variations on the Collatz sequence length calculation.
