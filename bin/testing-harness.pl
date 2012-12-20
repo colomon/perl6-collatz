@@ -1,4 +1,3 @@
-my $perl6 = @*ARGS.shift;
 my @numbers = 1..100, 10000..10100;
 
 sub collatz-length(Int $n) {
@@ -9,16 +8,18 @@ sub collatz-length(Int $n) {
     } 
 }
 
-for @*ARGS -> $script {
-    my $results = qqx/$perl6 $script { @numbers }/;
-    my @mistakes;
-    for $results.lines.map({ $_.comb(/\d+/) }) -> $n, $length {
-        push @mistakes, $n if collatz-length($n.Int) != $length;
-    }
-    if @mistakes {
-        say "Mistakes in $script: { @mistakes }";
-    } else {
-        say "$script correct";
+sub MAIN(Str $perl6, *@scripts) {
+    for @scripts -> $script {
+        my $results = qqx/$perl6 $script { @numbers }/;
+        my @mistakes;
+        for $results.lines.map({ $_.comb(/\d+/) }) -> $n, $length {
+            push @mistakes, $n if collatz-length($n.Int) != $length;
+        }
+        if @mistakes {
+            say "Mistakes in $script: { @mistakes }";
+        } else {
+            say "$script correct";
+        }
     }
 }
 
