@@ -9,14 +9,14 @@ sub MAIN(*@scripts) {
         my $start = now;
         qqx/$rakudo $script { @numbers }/;
         my $end = now;
-        %rakudo-results{$script} = ($end - $start).round(1/100);
+        %rakudo-results{$script} = ($end - $start).round(1/10);
 
         next if $script ~~ /cached/ && $script !~~ /"hand-cached"/;
         
         $start = now;
         qqx/$niecza $script { @numbers }/;
         $end = now;
-        %niecza-results{$script} = ($end - $start).round(1/100);
+        %niecza-results{$script} = ($end - $start).round(1/10);
     }
 
     say '<table border="1" align="center"> <tr><td>Script</td><td>Rakudo</td><td>Niecza</td></tr>';
