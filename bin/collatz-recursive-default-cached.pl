@@ -14,9 +14,9 @@ multi sub trait_mod:<is>(Routine $r, :$cached!) {
 
 sub collatz-length(Int $n) is cached {
     given $n {
-        when 1 { 1 }
+        when 1      { 1 }
         when * %% 2 { 1 + collatz-length($_ div 2) }
-        default { 1 + collatz-length(3 * $_ + 1) }
+        default     { 1 + collatz-length(3 * $_ + 1) }
     } 
 }
 
