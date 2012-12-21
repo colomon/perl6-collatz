@@ -1,4 +1,4 @@
-my @numbers = 1..200, 10000..10200;
+my @numbers = 1..300, 10000..10300;
 my $rakudo = "perl6";
 my $niecza = "mono ../niecza/run/Niecza.exe";
 
