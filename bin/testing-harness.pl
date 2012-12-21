@@ -11,8 +11,13 @@ sub collatz-length(Int $n) {
 sub MAIN(Str $perl6, *@scripts) {
     for @scripts -> $script {
         my $results = qqx/$perl6 $script { @numbers }/;
+        my @results = $results.lines.map({ $_.comb(/\d+/) }).map(* => *);
+
+        say "Hey, $script doesn't seem to have done the assigned work" 
+            unless @numbers (<=) @results && @results (<=) @numbers;
+
         my @mistakes;
-        for $results.lines.map({ $_.comb(/\d+/) }) -> $n, $length {
+        for @results -> (:key($n), :value($length)) {
             push @mistakes, $n if collatz-length($n.Int) != $length;
         }
         if @mistakes {
